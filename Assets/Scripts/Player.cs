@@ -1,62 +1,71 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
 public class Player : NetworkBehaviour
 {
-    public readonly SyncList<NetworkIdentity> listOfConnectedPlayers = new SyncList<NetworkIdentity>();
+    
+    public readonly List<GameObject> listOfCubes = new List<GameObject>();
+    public GameObject cubePrefab;
 
     
     public override void OnStartClient()
     {
+        if (!isLocalPlayer) return;
+        
         base.OnStartClient();
-        CmdAddPlayerToTheList();
+        //CubePositionManager.instance.CheckPlatform();
+        
+        foreach (KeyValuePair<int,Vector3> cubeRef in CubePositionManager.instance.cubesDictionary)
+        {
+            Vector3 posV3 = cubeRef.Value;
+            listOfCubes.Add(Instantiate(cubePrefab, posV3, Quaternion.identity)); 
+        }
+        
     }
 
-    // assigned in inspector
-    public GameObject cubePrefab;
 
     void Update()
     {
         if (!isLocalPlayer) return;
 
-        if (Input.GetKey(KeyCode.X))
-            CmdDropCube();
-        if (Input.GetKey(KeyCode.Space))
-            CmdShowConnectionList();
-    }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        //     CmdCreateCube();
 
-    [Command]
-    void CmdDropCube()
-    {
-        if (cubePrefab != null)
+        foreach (KeyValuePair<int,Vector3> cubeRef in CubePositionManager.instance.cubesDictionary)
         {
-            Vector3 spawnPos = transform.position + transform.forward * 2;
-            Quaternion spawnRot = transform.rotation;
-            GameObject cube = Instantiate(cubePrefab, spawnPos, spawnRot);
-            NetworkServer.Spawn(cube);
+            Vector3 posV3 = cubeRef.Value;
+            int num = cubeRef.Key;
+            listOfCubes[num].transform.position = posV3;
         }
-    }
 
-    [Command]
-    void CmdShowConnectionList()
-    {
-        foreach (NetworkIdentity networkIdentity in listOfConnectedPlayers)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log(networkIdentity);
+            Debug.Log("Space");
+            if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor)
+            {
+                Debug.Log("Windows");
+                CubePositionManager.instance.CmdChangeTheStateOfCubes();
+            }
         }
-    }
 
-    [Command]
-    void CmdAddPlayerToTheList()
-    {
-        if (listOfConnectedPlayers.Contains(this.netIdentity))
-        {
-            Debug.Log($"Net Identity Already Exist: {this.netIdentity}");
-        }
-        else
-        {
-            listOfConnectedPlayers.Add(this.netIdentity);
-            Debug.Log($"Net Identity Added: {this.netIdentity}");
-        }
     }
+    
+    
+
+
+    // [Command]
+    // void CmdCreateCube()
+    // {
+    //     if (cubePrefab != null)
+    //     {
+    //         Vector3 spawnPos = transform.position + transform.forward * 2;
+    //         Quaternion spawnRot = transform.rotation;
+    //         GameObject cube = Instantiate(cubePrefab, spawnPos, spawnRot);
+    //         NetworkServer.Spawn(cube);
+    //     }
+    // }
+
+
+
 }

@@ -1,8 +1,11 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - CubePositionManager
     - Player
     - UI_HUD
+    Mirror.Components.dll:
+    - Mirror.NetworkTransform
     Mirror.dll:
     - Mirror.NetworkIdentity
     - Mirror.NetworkManager
@@ -72,13 +75,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3438}
     - Class: 114
-      Script: {instanceID: 4944}
+      Script: {instanceID: 4464}
     - Class: 114
-      Script: {instanceID: 5104}
+      Script: {instanceID: 4760}
     - Class: 114
-      Script: {instanceID: 17682}
+      Script: {instanceID: 4946}
     - Class: 114
-      Script: {instanceID: 19590}
+      Script: {instanceID: 4984}
+    - Class: 114
+      Script: {instanceID: 5108}
+    - Class: 114
+      Script: {instanceID: 17366}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -824,6 +831,12 @@ ScriptsOnlyBuild:
     className: ControlTrack
   - hash:
       serializedVersion: 2
+      Hash: 0153765cf47d313c3b90209122625ff7
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Player
+  - hash:
+      serializedVersion: 2
       Hash: 800d5232127e2d4db254cbcd9eaad793
     assemblyName: Mirror.Examples.dll
     namespaceName: Mirror.Examples.Chat
@@ -968,6 +981,12 @@ ScriptsOnlyBuild:
     className: NetworkIdentity
   - hash:
       serializedVersion: 2
+      Hash: c86274410273759d10a893c5bada7d03
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: UI_HUD
+  - hash:
+      serializedVersion: 2
       Hash: fd68d84f33fad85aac38f2739c0ee270
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -1070,17 +1089,11 @@ ScriptsOnlyBuild:
     className: NetworkRoomPlayerExt
   - hash:
       serializedVersion: 2
-      Hash: 0153765cf47d313c3b90209122625ff7
+      Hash: 6fd2bb55b3ee5edb6040a1c5bccd0e07
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: Player
-  - hash:
-      serializedVersion: 2
-      Hash: c86274410273759d10a893c5bada7d03
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: UI_HUD
+    className: CubePositionManager
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: D:/Programs/Unity/Projects/MirrorAndSkeletTest/BUILDS/Client/MirrorAndSkeletTest.exe
+  playerPath: D:/Programs/Unity/Projects/MirrorAndSkeletTest/BUILDS/Server/MirrorAndSkeletTest.exe
